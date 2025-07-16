@@ -1,0 +1,86 @@
+/* =========================================================
+   0.  GLOBAL PAGE COLORS + BASE TYPOGRAPHY
+   --------------------------------------------------------- */
+   body{
+    margin:0;
+    background:#000;     /* charcoal black background */
+    color:#fff;          /* default text color */
+    font-family:sans-serif;
+  }
+  
+  /* =========================================================
+   1.  COMIC FRAME  (#viewer)
+   --------------------------------------------------------- */
+   #viewer{
+    position:relative;
+    width:40vw;
+    max-width:3000px;
+    margin:20px auto;
+  }
+  
+  /* ===== NEW: panel grid lives in #page ===== */
+  #page{
+    display:grid;        /* JS sets grid‑template each page */
+    gap:6px;
+  }
+  
+  #page img,
+  #page video{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  
+  /* =========================================================
+     2.  NAVIGATION ARROWS  (.nav-btn) – hug #viewer
+     --------------------------------------------------------- */
+  .nav-btn{
+    position:absolute;             /* relative to #viewer */
+    top:50%; transform:translateY(-50%);
+    width:44px; height:44px;
+    border:1px solid #555;
+    background:rgba(255,255,255,0.08);
+    color:#fff;
+    font-size:24px; line-height:1;
+    border-radius:50%; cursor:pointer;
+    transition:background .2s;
+  }
+  #prev{ left:-52px; }             /* ❮  offset left  */
+  #next{ right:-52px; }            /* ❯  offset right */
+  .nav-btn:hover{ background:rgba(255,255,255,0.20); }
+  #prev:disabled,#next:disabled{ opacity:.25; cursor:default; }
+  
+  /* =========================================================
+     3.  IMAGE / VIDEO RULES
+     ---------------------------------------------------------
+     Already declared above inside #viewer img,video
+     ========================================================= */
+  
+  /* =========================================================
+     4.  NARROW‑SCREEN OVERRIDES  (max‑width: 600 px)
+     ---------------------------------------------------------
+     Applied when the viewport is **600 px or narrower**.
+     You can uncomment the .nav-btn rule to HIDE arrows on phones,
+     or keep them visible by default.
+     ========================================================= */
+  @media (max-width:600px){
+    #viewer{
+      width:80vw;        /* wider relative frame on small screens */
+      max-width:none;    /* remove the 3000 px cap for tiny devices */
+    }
+    /* To hide arrows on small screens, uncomment:           */
+    /* .nav-btn{ display:none; }                             */
+  }
+  
+  /* =========================================================
+     5.  DESKTOP TOP‑MARGIN  (min‑width: 600 px)
+     ---------------------------------------------------------
+     Applied when the viewport is **wider than 600 px**.
+     Gives the comic 1‑inch breathing room at the top.
+     Adjust the inch value or breakpoint as needed.
+     ========================================================= */
+  @media (min-width:600px){
+    #viewer{
+      margin:1in auto 20px;   /* 1 in top, auto sides, 20 px bottom */
+    }
+  }
