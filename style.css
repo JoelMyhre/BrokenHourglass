@@ -5,7 +5,8 @@
     margin:0;
     background:#000;     /* charcoal black background */
     color:#fff;          /* default text color */
-    font-family:sans-serif;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
   }
   
   /* =========================================================
@@ -56,6 +57,11 @@
      Already declared above inside #viewer img,video
      ========================================================= */
   
+/* === STACKING CONTEXT FOR EVERY PANEL ============================ */
+#page > * {            /* whatever element pages.js inserts per panel */
+    position: relative;  /* lets .caption-box use absolute coords + z-index */
+  }
+
   /* =========================================================
      4.  NARROW‑SCREEN OVERRIDES  (max‑width: 600 px)
      ---------------------------------------------------------
@@ -84,3 +90,23 @@
       margin:1in auto 20px;   /* 1 in top, auto sides, 20 px bottom */
     }
   }
+
+  /* 6. --- Caption / narration box --- */
+.caption-box{
+    position:absolute; inset:0;       /* fills its grid cell */
+    margin:12px; padding:10px 14px;
+    background:rgba(12,12,14,.72);
+    color:#f2f4f8;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:8px;
+    box-shadow:0 4px 6px rgb(0 0 0 / .45);
+    font:400 1rem/1.4 "Orbitron",sans-serif;
+    letter-spacing:.03em;
+    text-shadow:0 1px 2px rgb(0 0 0 / .5);
+    backdrop-filter:blur(2px);
+    pointer-events:none;             /* clicks go through */
+    z-index: 2;          
+    white-space: pre-line;  /* collapse extra spaces but keep newlines */
+  }
+  /* optional placement flavour */
+  .caption-bottom{ align-self:end; }
