@@ -57,7 +57,7 @@ function render () {
       case 'text':
         el = document.createElement('div');
         el.className   = p.class || 'caption-box';
-        el.textContent = p.content || '';
+        el.innerHTML   = p.content || '';
         break;
 
       default:

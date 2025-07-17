@@ -46,8 +46,8 @@
     border-radius:50%; cursor:pointer;
     transition:background .2s;
   }
-  #prev{ left:-52px; }             /* ❮  offset left  */
-  #next{ right:-52px; }            /* ❯  offset right */
+  #prev{ left:-67px; }             /* ❮  offset left  */
+  #next{ right:-67px; }            /* ❯  offset right */
   .nav-btn:hover{ background:rgba(255,255,255,0.20); }
   #prev:disabled,#next:disabled{ opacity:.25; cursor:default; }
   
@@ -108,5 +108,12 @@
     z-index: 2;          
     white-space: pre-line;  /* collapse extra spaces but keep newlines */
   }
+  .caption-box.caption-bottom {
+    /* override the inset:0 so it only hugs bottom & left */
+    inset: auto auto 12px 12px;
+    margin: 0;  /* optional, removes the extra 12px margin */
+  }
   /* optional placement flavour */
   .caption-bottom{ align-self:end; }
+
+  
