@@ -23,6 +23,8 @@
   #page{
     display:grid;        /* JS sets grid‑template each page */
     gap:6px;
+    position: relative;  /* lets .caption-box use absolute coords + z-index */
+    container-type: inline-size;
   }
   
   #page img,
@@ -92,26 +94,58 @@
   }
 
   /* 6. --- Caption / narration box --- */
-.caption-box{
-    position:absolute; inset:0;       /* fills its grid cell */
+  .caption-box {
+    position: absolute; inset:0;
     margin:12px; padding:10px 14px;
     background:rgba(12,12,14,.72);
     color:#f2f4f8;
     border:1px solid rgba(255,255,255,.25);
     border-radius:8px;
     box-shadow:0 4px 6px rgb(0 0 0 / .45);
-    font:400 1rem/1.4 "Orbitron",sans-serif;
+    /* remove fixed font declaration if present */
+    /* font:400 1rem/1.4 "Orbitron",sans-serif; */
+    font-family: "Orbitron", sans-serif;
     letter-spacing:.03em;
     text-shadow:0 1px 2px rgb(0 0 0 / .5);
     backdrop-filter:blur(2px);
-    pointer-events:none;             /* clicks go through */
-    z-index: 2;          
-    white-space: pre-line;  /* collapse extra spaces but keep newlines */
+    pointer-events:none;
+    z-index:2;
+    white-space: pre-line;
+  
+    /* NEW: fluid size based on its container’s width */
+    font-size: clamp(
+      0.9rem,   /* never smaller than 0.9rem */
+      4cqi,     /* otherwise 4% of its panel’s inline size */
+      1.3rem    /* never larger than 1.3rem */
+    );
   }
   .caption-box.caption-bottom {
     /* override the inset:0 so it only hugs bottom & left */
     inset: auto auto 12px 12px;
     margin: 0;  /* optional, removes the extra 12px margin */
+  }
+  /* speech-pointer-left: tail on the left middle */
+.caption-box.speech-pointer-left::after {
+    content: "";
+    position: absolute;
+    left:   -12px;               /* poke out past left edge */
+    top:    50%;                 /* vertically centered */
+    transform: translateY(-50%);
+    border-width: 8px 12px 8px 0; /* top, right, bottom, left */
+    border-style: solid;
+    border-color: transparent var(--cap-fg) transparent transparent;
+  }
+  
+  /* speech-pointer-right: tail on the right middle */
+  .caption-box.speech-pointer-right::after {
+    content: "";
+    position: absolute;
+    right:  -12px;               /* poke out past right edge */
+    top:    50%;
+    transform: translateY(-50%);
+    border-width: 8px 0 8px 12px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--cap-fg);
   }
   /* optional placement flavour */
   .caption-bottom{ align-self:end; }
